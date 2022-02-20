@@ -13,15 +13,20 @@ import java.util.Objects;
  * @author mariana.bonish
  */
 public class Item {
-    int itemid;
+    
+    int itemId;
     String name;
     BigDecimal cost;
     int quantity;
 
+    public Item(int itemId){
+    this.itemId = itemId;
+}
+
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 41 * hash + this.itemid;
+        hash = 41 * hash + this.itemId;
         hash = 41 * hash + Objects.hashCode(this.name);
         hash = 41 * hash + Objects.hashCode(this.cost);
         hash = 41 * hash + this.quantity;
@@ -40,7 +45,7 @@ public class Item {
             return false;
         }
         final Item other = (Item) obj;
-        if (this.itemid != other.itemid) {
+        if (this.itemId != other.itemId) {
             return false;
         }
         if (this.quantity != other.quantity) {
@@ -56,12 +61,12 @@ public class Item {
     }
     
     
-    public int getItemid() {
-        return itemid;
+    public int getItemId() {
+        return itemId;
     }
 
-    public void setItemid(int itemid) {
-        this.itemid = itemid;
+    public void setItemId(int itemid) {
+        this.itemId = itemid;
     }
 
     public String getName() {
@@ -90,7 +95,7 @@ public class Item {
 
     @Override
     public String toString() {
-        return "Item{" + "itemid=" + itemid + ", name=" + name + ", cost=" + cost + ", quantity=" + quantity + '}';
+        return "Item{" + "itemid=" + itemId + ", name=" + name + ", cost=" + cost + ", quantity=" + quantity + '}';
     }
 
 }

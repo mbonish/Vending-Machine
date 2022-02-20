@@ -5,10 +5,24 @@
  */
 package vendingMachine;
 
+import vendingMachine.controller.VendingMachineController;
+import vendingMachine.dao.VendingMachineDao;
+import vendingMachine.dao.VendingMachineDaoImpl;
+import vendingMachine.dao.VendingMachinePersistenceException;
+import vendingMachine.view.UserIO;
+import vendingMachine.view.UserIOConsoleImpl;
+import vendingMachine.view.VendingMachineView;
+
 /**
  *
  * @author mariana.bonish
  */
 public class main {
-    
+    public static void main(String[] args) {
+        UserIO myIO = new UserIOConsoleImpl();
+        VendingMachineView myView = new VendingMachineView(myIO);
+        VendingMachineDao myDao = new VendingMachineDaoImpl();
+        VendingMachineController controller = new VendingMachineController(myView, myDao);
+        controller.run();
+    }
 }
