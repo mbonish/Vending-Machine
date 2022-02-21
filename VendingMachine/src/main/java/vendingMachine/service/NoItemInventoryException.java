@@ -9,6 +9,12 @@ package vendingMachine.service;
  *
  * @author mariana.bonish
  */
-public class NoItemInventoryException {
+public class NoItemInventoryException extends Exception{
+       public NoItemInventoryException(String message){
+        super(message);
+    }
     
+    public NoItemInventoryException(String message, Throwable cause){
+        super(message,cause);
+    }
 }

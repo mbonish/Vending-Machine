@@ -53,7 +53,7 @@ public class VendingMachineDaoImpl implements VendingMachineDao {
     @Override
     public Item getItem(int ItemId) throws VendingMachinePersistenceException {
         loadItems();
-       return Items.get(ItemId);
+        return Items.get(ItemId);
     }
 
     private Item unmarshallItem(String itemAsText) {
@@ -137,9 +137,19 @@ public class VendingMachineDaoImpl implements VendingMachineDao {
 
             //force the print writer to write line to file
             out.flush();
-
-            //clean up
-            out.close();
         }
+        //clean up
+        out.close();
     }
+
+    @Override
+    public void updateQuantity(int itemId) throws VendingMachinePersistenceException {
+        //gets all the items then allows you to select the one of them items 
+        Item itemToUpdate = this.getItem(itemId);
+        //update the item quantity to be -1
+        itemToUpdate.setQuantity(itemToUpdate.getQuantity() - 1);
+        writeItems();
+
+    }
+
 }

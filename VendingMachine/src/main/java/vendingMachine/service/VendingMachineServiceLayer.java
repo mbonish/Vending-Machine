@@ -5,10 +5,22 @@
  */
 package vendingMachine.service;
 
+import java.util.List;
+import vendingMachine.dao.VendingMachinePersistenceException;
+import vendingMachine.dto.Item;
+
 /**
  *
  * @author mariana.bonish
  */
 public interface VendingMachineServiceLayer {
+       List<Item> getAllItems()throws VendingMachinePersistenceException;
+   
+    //get a single item- pass it an id and it will return a sinlge item 
+    
+   Item getItem(int ItemId)throws VendingMachinePersistenceException, NoItemInventoryException;
+   
+   //update
+   void updateQuantity(int itemId) throws VendingMachinePersistenceException;
     
 }

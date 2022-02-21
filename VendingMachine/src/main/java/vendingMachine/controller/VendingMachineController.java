@@ -9,7 +9,7 @@ import java.util.List;
 import vendingMachine.dao.VendingMachineDao;
 import vendingMachine.dao.VendingMachinePersistenceException;
 import vendingMachine.dto.Item;
-import vendingMachine.view.VendingMachineView;
+import vendingMachine.UI.VendingMachineView;
 
 /**
  *
@@ -34,6 +34,8 @@ public class VendingMachineController {
         try {
             List<Item> items = dao.getAllItems();
             view.displayItemsList(items);
+            int itemChoice = view.getItemChoice();
+            dao.updateQuantity(itemChoice);
         } catch (VendingMachinePersistenceException e) {
             view.displayErrorMessage(e.getMessage());
 //        boolean keepGoing = true;

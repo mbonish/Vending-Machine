@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vendingMachine.view;
+package vendingMachine.UI;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -27,8 +27,7 @@ public class VendingMachineView {
                     +currentItem.getName() + ":"
                     +currentItem.getCost() + ":"
                     +currentItem.getQuantity());
-        }
-        io.readString("Please Select Item or hit ENTER to continue.");
+        };
     }
     
     public void displayAllItemsBanner(){
@@ -43,7 +42,7 @@ public class VendingMachineView {
         io.readInt("Please insert your money.");
 }
     public int getItemChoice(){
-        return io.readInt("Please enter the item number. ");
+        return io.readInt("Please enter the item number you would like to purchase. ");
     }
     
     public void displaySingleItem(Item item){
