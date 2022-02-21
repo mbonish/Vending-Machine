@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  *
  * @author mariana.bonish
  */
-public class VendingMachineAduitDaoImpl implements VendingMachineAuditDao {
+public class VendingMachineAuditDaoImpl implements VendingMachineAuditDao {
     public static final String AUDIT_FILE = "audit.txt";
     
     @Override

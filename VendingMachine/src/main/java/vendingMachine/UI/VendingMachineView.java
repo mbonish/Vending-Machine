@@ -59,4 +59,13 @@ public class VendingMachineView {
        io.print("=== Error ===");
        io.print(errorMsg);
    }
+   
+   public BigDecimal enterMoney(){
+       double money =io.readDouble("Enter your dollar amount.");
+       return BigDecimal.valueOf(money);
+   }
+   
+   public void dispenseChange(String change){
+       io.print("Your change is: " + change);
+   }
 }

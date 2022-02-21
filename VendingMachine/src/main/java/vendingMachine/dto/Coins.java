@@ -10,5 +10,15 @@ package vendingMachine.dto;
  * @author mariana.bonish
  */
 public class Coins {
+    enum Money{
+        TWENTY,
+        TEN,
+        FIVE,
+        ONE,
+        QUARTER,
+        DIME,
+        NICKEL,
+        PENNY ;
+    }
     
 }

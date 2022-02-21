@@ -5,6 +5,7 @@
  */
 package vendingMachine.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import vendingMachine.dao.VendingMachinePersistenceException;
 import vendingMachine.dto.Item;
@@ -23,4 +24,6 @@ public interface VendingMachineServiceLayer {
    //update
    void updateQuantity(int itemId) throws VendingMachinePersistenceException;
     
+     public void insufficientFundsException(Item item, BigDecimal moneyIn) throws 
+            InsufficientFundsException;
 }

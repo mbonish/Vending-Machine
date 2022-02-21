@@ -5,11 +5,16 @@
  */
 package vendingMachine.controller;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.List;
 import vendingMachine.dao.VendingMachineDao;
 import vendingMachine.dao.VendingMachinePersistenceException;
 import vendingMachine.dto.Item;
 import vendingMachine.UI.VendingMachineView;
+import vendingMachine.service.InsufficientFundsException;
+import vendingMachine.service.NoItemInventoryException;
+import vendingMachine.service.VendingMachineServiceLayer;
 
 /**
  *
@@ -18,11 +23,11 @@ import vendingMachine.UI.VendingMachineView;
 public class VendingMachineController {
 
     VendingMachineView view;
-    VendingMachineDao dao;
+    VendingMachineServiceLayer service;
 
-    public VendingMachineController(VendingMachineView view, VendingMachineDao dao) {
+    public VendingMachineController(VendingMachineView view, VendingMachineServiceLayer service) {
         this.view = view;
-        this.dao = dao;
+        this.service = service;
     }
     //Automatically show all the items from the machine 
     //Enter item for purchase 
@@ -32,36 +37,36 @@ public class VendingMachineController {
 
     public void run() {
         try {
-            List<Item> items = dao.getAllItems();
+            //enter your money
+            BigDecimal dollars = view.enterMoney();
+            
+            //display list of items
+            List<Item> items = service.getAllItems();
             view.displayItemsList(items);
+            
+            //choice an item
             int itemChoice = view.getItemChoice();
-            dao.updateQuantity(itemChoice);
-        } catch (VendingMachinePersistenceException e) {
+            Item itemToVend = service.getItem(itemChoice);
+            this.enoughMoney(dollars, itemToVend);
+            //update the item in the vending machine 
+            service.updateQuantity(itemChoice);
+            
+            //make change and give
+            BigDecimal changeToGive = this.makeChange(dollars, itemToVend);
+            String change = changeToGive.toString();
+            view.dispenseChange(change);
+            
+        } catch (VendingMachinePersistenceException |InsufficientFundsException
+                | NoItemInventoryException e) {
             view.displayErrorMessage(e.getMessage());
-//        boolean keepGoing = true;
-//        int menuSelection = 0;
-////
-////        try {
-//            while (keepGoing) {
-//                //must enter a dollar amount before continuing
-//                System.out.println("Enter a dollar amount");
-//                System.out.println("(1)__Show all items__");
-//                System.out.println("(2) Exit");
-//               
-//                //menuSelection int 
-//                System.out.println("Please Select from the above choices.");
-//
-//                switch (menuSelection) {
-//                    case 1:
-//                        //list all the items
-//                    case 2:
-//                        //exit
-//                     default:
-////                        this.io.print("UNKNOWN COMMAND");    
-//                }
-//            }
-////        } catch(VendingMachinePersistenceException e) {
-////            view.displayErrorMessage(e.getMessage());
+            }
         }
+    
+    private void enoughMoney(BigDecimal dollars, Item item)throws InsufficientFundsException{
+        service.insufficientFundsException(item, dollars);
+    }
+    
+    private BigDecimal makeChange(BigDecimal dollar, Item item){
+         return dollar.subtract(item.getCost());
     }
 }

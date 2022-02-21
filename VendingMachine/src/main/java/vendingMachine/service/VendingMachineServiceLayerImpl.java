@@ -47,7 +47,8 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
         dao.updateQuantity(itemId);
     }
     
-    private void insufficientFundsException(Item item, BigDecimal moneyIn) throws 
+    @Override
+    public void insufficientFundsException(Item item, BigDecimal moneyIn) throws 
             InsufficientFundsException{
         
         if(item.getCost().compareTo(moneyIn)> 0){
