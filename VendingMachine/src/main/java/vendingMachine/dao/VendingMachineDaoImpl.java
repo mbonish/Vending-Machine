@@ -57,7 +57,7 @@ public class VendingMachineDaoImpl implements VendingMachineDao {
     }
 
     private Item unmarshallItem(String itemAsText) {
-
+        
         //splits the string between the delimiter
         String[] itemTokens = itemAsText.split(DELIMITER);
 

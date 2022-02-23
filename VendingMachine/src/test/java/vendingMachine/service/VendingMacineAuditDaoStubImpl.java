@@ -5,10 +5,18 @@
  */
 package vendingMachine.service;
 
+import vendingMachine.dao.VendingMachineAuditDao;
+import vendingMachine.dao.VendingMachinePersistenceException;
+
 /**
  *
  * @author mariana.bonish
  */
-public class VendingMacineAuditDaoStubImpl {
+public class VendingMacineAuditDaoStubImpl implements VendingMachineAuditDao {
+
+    @Override
+    public void writeAuditEntry(String entry) throws VendingMachinePersistenceException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
