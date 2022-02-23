@@ -22,50 +22,58 @@ public class VendingMachineView {
     }
 
     public void displayItemsList(List<Item> itemList) {
-        for( Item currentItem : itemList){
-            io.print(currentItem.getItemId()+ ":"
-                    +currentItem.getName() + ":"
-                    +currentItem.getCost() + ":"
-                    +currentItem.getQuantity());
-        };
+        for (Item currentItem : itemList) {
+            if (currentItem.getQuantity() > 0) {
+                io.print(currentItem.getItemId() + ":"
+                        + currentItem.getName() + ":"
+                        + currentItem.getCost() + ":"
+                        + currentItem.getQuantity());
+            }
+        }
     }
-    
-    public void displayAllItemsBanner(){
+
+    public void displayAllItemsBanner() {
         io.print("=== VENDING ITEMS ===");
+        io.print("Item NUMBER:: ITEM:: COST :: QUANTITY");
     }
-    
-    public void displayItemNameBanner(){
+
+    public void displayItemNameBanner() {
         io.print("== SELECTED ITEM ===");
     }
-    
-    public void displayInsertMoneyBanner(){
+
+    public void displayInsertMoneyBanner() {
         io.readInt("Please insert your money.");
-}
-    public int getItemChoice(){
+    }
+
+    public int getItemChoice() {
         return io.readInt("Please enter the item number you would like to purchase. ");
     }
-    
-    public void displaySingleItem(Item item){
-        if (item != null){
+
+    public void displaySingleItem(Item item) {
+        if (item != null) {
             io.print(Integer.toString(item.getItemId()));
             io.print(item.getName());
-             BigDecimal cost = item.getCost();
+            BigDecimal cost = item.getCost();
             io.print(cost.toString());
             io.print(Integer.toString(item.getQuantity()));
         }
     }
+
+    public void displayErrorMessage(String errorMsg) {
+        io.print("=== Error ===");
+        io.print(errorMsg);
+    }
+
+    public BigDecimal enterMoney() {
+        double money = io.readDouble("Enter your dollar amount.");
+        return BigDecimal.valueOf(money);
+    }
+
+    public void dispenseChange(String change) {
+        io.print("Your change is: " + change);
+    }
     
-   public void displayErrorMessage(String errorMsg){
-       io.print("=== Error ===");
-       io.print(errorMsg);
-   }
-   
-   public BigDecimal enterMoney(){
-       double money =io.readDouble("Enter your dollar amount.");
-       return BigDecimal.valueOf(money);
-   }
-   
-   public void dispenseChange(String change){
-       io.print("Your change is: " + change);
-   }
+    public String buyMore(){
+        return io.readString("Would you like to by another item?? y/n");
+    }
 }

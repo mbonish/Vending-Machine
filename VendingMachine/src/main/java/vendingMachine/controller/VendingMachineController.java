@@ -36,37 +36,50 @@ public class VendingMachineController {
     //give change 
 
     public void run() {
+            boolean keepGoing = true;
         try {
-            //enter your money
-            BigDecimal dollars = view.enterMoney();
-            
-            //display list of items
-            List<Item> items = service.getAllItems();
-            view.displayItemsList(items);
-            
-            //choice an item
-            int itemChoice = view.getItemChoice();
-            Item itemToVend = service.getItem(itemChoice);
-            this.enoughMoney(dollars, itemToVend);
-            //update the item in the vending machine 
-            service.updateQuantity(itemChoice);
-            
-            //make change and give
-            BigDecimal changeToGive = this.makeChange(dollars, itemToVend);
-            String change = changeToGive.toString();
-            view.dispenseChange(change);
-            
-        } catch (VendingMachinePersistenceException |InsufficientFundsException
+
+            while (keepGoing = true) {
+                //enter your money
+                BigDecimal dollars = view.enterMoney();
+
+                //display list of items
+                List<Item> items = service.getAllItems();
+                view.displayAllItemsBanner();
+                view.displayItemsList(items);
+
+                //choice an item
+                int itemChoice = view.getItemChoice();
+                Item itemToVend = service.getItem(itemChoice);
+                this.enoughMoney(dollars, itemToVend);
+                
+                //update the item in the vending machine 
+                service.updateQuantity(itemChoice);
+
+                //make change and give
+                BigDecimal changeToGive = this.makeChange(dollars, itemToVend);
+                String change = changeToGive.toString();
+                view.dispenseChange(change);
+                
+                //Vend another item 
+                
+                String response = view.buyMore();
+                if( response == "y"){
+                    keepGoing = true;
+                }
+                else keepGoing = false; 
+            }
+        } catch (VendingMachinePersistenceException | InsufficientFundsException
                 | NoItemInventoryException e) {
             view.displayErrorMessage(e.getMessage());
-            }
         }
-    
-    private void enoughMoney(BigDecimal dollars, Item item)throws InsufficientFundsException{
+    }
+
+    private void enoughMoney(BigDecimal dollars, Item item) throws InsufficientFundsException {
         service.insufficientFundsException(item, dollars);
     }
-    
-    private BigDecimal makeChange(BigDecimal dollar, Item item){
-         return dollar.subtract(item.getCost());
+
+    private BigDecimal makeChange(BigDecimal dollar, Item item) {
+        return dollar.subtract(item.getCost());
     }
 }

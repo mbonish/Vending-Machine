@@ -1,3 +1,6 @@
-1::blueSourPatchKids::1.00::1
-2::greenSourPatchKids::2.00::2
+1::blueSourPatchKids::1.00::2
+2::greenSourPatchKids::2.00::3
 3::pinkSourPatchKids::3.00::3
+1::blueGummyBears::1.00::2
+2::greenGummyBears::2.00::3
+3::pinkGummyBears::3.00::3

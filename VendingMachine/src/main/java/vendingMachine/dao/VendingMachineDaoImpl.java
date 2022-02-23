@@ -34,10 +34,10 @@ public class VendingMachineDaoImpl implements VendingMachineDao {
     public final String ITEMS_FILE;
 
     //Will need to create a constructor to pass in file for testing 
-//    public VendingMachineDaoImpl(String vendingTextFile){
-//        ITEMS_FILE = vendingTextFile;
-//    }
-//        constructor to pass in txt file
+    public VendingMachineDaoImpl(String vendingTextFile){
+        ITEMS_FILE = vendingTextFile;
+    }
+
     public VendingMachineDaoImpl() {
         ITEMS_FILE = "items.txt";
     }
@@ -46,7 +46,7 @@ public class VendingMachineDaoImpl implements VendingMachineDao {
     //int an item object
     @Override
     public List<Item> getAllItems() throws VendingMachinePersistenceException {
-        loadItems();
+        loadItems(); 
         return new ArrayList<Item>(Items.values());
     }
 
