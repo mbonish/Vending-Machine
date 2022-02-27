@@ -36,38 +36,37 @@ public class VendingMachineController {
     //give change 
 
     public void run() {
-            boolean keepGoing = true;
+        boolean keepGoing = true;
         try {
 
             while (keepGoing = true) {
-                //enter your money
-                BigDecimal dollars = view.enterMoney();
-
                 //display list of items
                 List<Item> items = service.getAllItems();
                 view.displayAllItemsBanner();
                 view.displayItemsList(items);
 
+                //enter your money
+                BigDecimal dollars = view.enterMoney();
+
                 //choice an item
                 int itemChoice = view.getItemChoice();
                 Item itemToVend = service.getItem(itemChoice);
                 this.enoughMoney(dollars, itemToVend);
-                
+
                 //update the item in the vending machine 
                 service.updateQuantity(itemChoice);
 
                 //make change and give
-                BigDecimal changeToGive = this.makeChange(dollars, itemToVend);
-                String change = changeToGive.toString();
+                String change = this.makeChange(dollars, itemToVend);
                 view.dispenseChange(change);
-                
+
                 //Vend another item 
-                
                 String response = view.buyMore();
-                if( response == "y"){
+                if (response == "y") {
                     keepGoing = true;
+                } else {
+                    keepGoing = false;
                 }
-                else keepGoing = false; 
             }
         } catch (VendingMachinePersistenceException | InsufficientFundsException
                 | NoItemInventoryException e) {
@@ -79,7 +78,70 @@ public class VendingMachineController {
         service.insufficientFundsException(item, dollars);
     }
 
-    private BigDecimal makeChange(BigDecimal dollar, Item item) {
-        return dollar.subtract(item.getCost());
+    private String makeChange(BigDecimal dollar, Item item) {
+        BigDecimal bDollars = dollar.subtract(item.getCost());
+        BigDecimal oneHundred = new BigDecimal(100);
+        //change big Decmai to double to do math on it 
+        BigDecimal BDchange = bDollars.multiply(oneHundred);
+        
+        int change = Integer.valueOf(BDchange.intValue());
+        
+
+        int remainder;
+
+    
+        int quarters;
+        int dimes;
+        int nickles;
+        int pennies = 0;
+
+        int quartersToReturn =0;
+        int dimesToReturn =0;
+        int nicklesToReturn=0;
+        int penniesToReturn=0;
+
+        String totalChange;
+        System.out.println(change);
+        if (change >= 25) {
+            quarters = (int) (change / 25); 
+            remainder = quarters * 25;
+            change = change - remainder;
+            if (quarters > 0) {
+                quartersToReturn = quarters;
+            }
+        }
+        System.out.println(change);
+        if (change >= 10) {
+            dimes = (int) (change / 10);
+            remainder = dimes * 10;
+            change = change - remainder;
+            if (dimes > 0) {
+                dimesToReturn = dimes;
+            }
+        }
+        
+        System.out.println(change);
+        if (change >= 5) {
+            nickles = (int) (change / 5);
+            remainder = nickles * 5;
+            change = change - remainder;
+
+            if (nickles > 0) {
+                nicklesToReturn = nickles;
+            }
+
+        }
+        System.out.println(change); 
+        if (change >= 1) {
+            pennies = (int)change;       
+        }
+        System.out.println(change);
+        totalChange = "Your change is: "
+                + "\nQUARTERS: " + quartersToReturn
+                + "\nDIMES: " + dimesToReturn
+                + "\nNICKLES: " + nicklesToReturn
+                + "\nPENNIES: " + pennies;
+
+        return totalChange;
     }
 }

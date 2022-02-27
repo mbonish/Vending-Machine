@@ -117,8 +117,10 @@ public class VendingMachineDaoImplTest {
         
    @Test
     public void updateQuantity() throws Exception{
-        
+        Item testItem3Before = testDao.getItem(3);
 
+        assertEquals(testItem3Before.getQuantity(),3);
+        
         testDao.updateQuantity(3);
         Item testItem3 = testDao.getItem(3);
         

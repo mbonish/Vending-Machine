@@ -20,33 +20,34 @@ public class VendingMachineDaoStubImpl implements VendingMachineDao {
 
     public Item item1;
     public Item item2;
-
+    List<Item> itemList = new ArrayList<>();
     public VendingMachineDaoStubImpl() {
+
         item1 = new Item(1);
         item1.setName("TestItem1");
         BigDecimal cost = new BigDecimal(1.00);
         item1.setCost(cost);
         item1.setQuantity(3);
 
-        item2 = new Item(1);
+        item2 = new Item(2);
         item2.setName("TestItem1");
         BigDecimal cost2 = new BigDecimal(1.00);
         item2.setCost(cost2);
         item2.setQuantity(0);
+       
+        itemList.add(item1);
+        itemList.add(item2);
 
     }
-
-    public VendingMachineDaoStubImpl(Item testItem, Item testItem2) {
-        this.item1 = testItem;
-        this.item2 = testItem2;
-    }
+//
+//    public VendingMachineDaoStubImpl(Item testItem, Item testItem2) {
+//        this.item1 = testItem;
+//        this.item2 = testItem2;
+//    }
 
     @Override
     public List<Item> getAllItems() throws VendingMachinePersistenceException {
-        List<Item> itemList = new ArrayList<>();
-        itemList.add(item1);
-        itemList.add(item2);
-        return itemList;
+            return itemList;
     }
 
     @Override

@@ -49,26 +49,45 @@ public class VendingMachineServiceLayerImplTest {
     public void tearDown() {
     }
 
-//    @Test
-//    public void getItem() throws Exception {
-//        try {
-//            service.getItem(2);
-//            fail("The quanity of item 2 is zero.");
-//        } catch (NoItemInventoryException e) {
-//            return;
-//        }
-//    }
-//
-//    @Test
-//    public void insufficientFundsException() throws Exception {
-//
-//        Item vendingItem = service.getItem(1);
-//        BigDecimal moneyIn = new BigDecimal(.75);
-//        try {
-//            service.insufficientFundsException(vendingItem, moneyIn);
-//            fail("This should not be enough money.");
-//        } catch (InsufficientFundsException e) {
-//            return;
-//        }
-//    }
+    @Test
+    public void getItem() throws Exception {
+        try {
+            Item zero =service.getItem(2);
+            fail("No items.");
+        } catch (NoItemInventoryException e) {
+            return;
+        }
+     
+    }
+
+       public void getItem2() throws Exception {
+           try{
+               Item item1 = service.getItem(1);
+           }catch(NoItemInventoryException e){
+               fail("There are items to vend.");
+           }
+       }
+    @Test
+    public void insufficientFundsException() throws Exception {
+
+        Item vendingItem = service.getItem(1);
+        BigDecimal moneyIn = new BigDecimal(.75);
+        try {
+            service.insufficientFundsException(vendingItem, moneyIn);
+            fail("This should not be enough money.");
+        } catch (InsufficientFundsException e) {
+            return;
+        }
+    }
+        @Test
+    public void insufficientFundsException2() throws Exception {
+        Item vendingItem = service.getItem(1);
+        BigDecimal moneyIn = new BigDecimal(2.00);
+        try{
+            service.insufficientFundsException(vendingItem, moneyIn);
+        }catch (InsufficientFundsException e){
+            fail("There was sufficent funds.");
+        }
+    }
+    
 }

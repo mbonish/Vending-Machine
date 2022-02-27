@@ -35,7 +35,7 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
     @Override
     public Item getItem(int ItemId) throws VendingMachinePersistenceException,
             NoItemInventoryException {
-        if(dao.getItem(ItemId).getQuantity() <+0)
+        if(dao.getItem(ItemId).getQuantity() <=0)
             throw new NoItemInventoryException("ERROR: there are none of these "
                     + "items to vend.");
         return dao.getItem(ItemId);
